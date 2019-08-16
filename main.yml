@@ -1,0 +1,24 @@
+- hosts: localhost
+  import_playbook: prerequisites.yml
+  tasks:
+   - name: "Using Dockerfile"
+     docker_image: 
+       dockerfile: Dockerfile
+       name: browser_notepad:v1
+       path: "."
+       pull: no
+       state: present
+   - name: "Launching notepad"
+     docker_container:
+       detach: yes
+       image: browser_notepad:v1
+       interactive: yes
+       tty: yes
+       name: notepad_container
+       published_ports: 
+        - "2233:3333"
+       state: started
+       
+       
+       
+ 

@@ -1,5 +1,5 @@
+- import_playbook: prerequisites.yml
 - hosts: localhost
-  import_playbook: prerequisites.yml
   tasks:
    - name: "Using Dockerfile"
      docker_image: 

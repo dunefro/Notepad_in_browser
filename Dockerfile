@@ -12,5 +12,5 @@ RUN  sed -i 's/X11UseLocalhost yes/X11UseLocalhost no/' /etc/ssh/sshd_config
 
 RUN xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no
 
-CMD /usr/sbin/sshd -f /etc/ssh/sshd_config && xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no 
+CMD /usr/sbin/sshd -f /etc/ssh/sshd_config && xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no  &
 

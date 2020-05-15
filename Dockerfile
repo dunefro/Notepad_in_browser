@@ -6,11 +6,21 @@ RUN echo -e "[winswitch]\nname=Winswitch $releasever - $basearch\nenabled=1\nmet
 
 RUN yum install xpra python-websockify -y 
 
-RUN sshd-keygen
+RUN sshd-keygen; /usr/sbin/sshd -f /etc/ssh/sshd_config; echo "/usr/sbin/sshd -f /etc/ssh/sshd_config" >> /root/.bashrc
 
-RUN  sed -i 's/X11UseLocalhost yes/X11UseLocalhost no/' /etc/ssh/sshd_config
+RUN sed -i 's/X11Forwarding no/X11Forwarding yes/' /etc/ssh/sshd_config; sed -i 's/X11UseLocalhost yes/X11UseLocalhost no/' /etc/ssh/sshd_config; /usr/sbin/sshd
 
-RUN xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no
+RUN dbus-uuidgen > /etc/machine-id 
 
-CMD /usr/sbin/sshd -f /etc/ssh/sshd_config && xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no  &
+RUN xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no; echo "xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no" >> /root/.bashrc
+
+ 		 
+
+#RUN sshd-keygen
+
+#RUN  sed -i 's/X11UseLocalhost yes/X11UseLocalhost no/' /etc/ssh/sshd_config
+
+#RUN echo -e "xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no" >> /root/.bashrc
+
+#CMD /usr/sbin/sshd -f /etc/ssh/sshd_config && xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no  
 

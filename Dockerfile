@@ -13,14 +13,3 @@ RUN sed -i 's/X11Forwarding no/X11Forwarding yes/' /etc/ssh/sshd_config; sed -i 
 RUN dbus-uuidgen > /etc/machine-id 
 
 RUN xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no; echo "xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no" >> /root/.bashrc
-
- 		 
-
-#RUN sshd-keygen
-
-#RUN  sed -i 's/X11UseLocalhost yes/X11UseLocalhost no/' /etc/ssh/sshd_config
-
-#RUN echo -e "xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no" >> /root/.bashrc
-
-#CMD /usr/sbin/sshd -f /etc/ssh/sshd_config && xpra start --bind-tcp=0.0.0.0:3333 --html=on --start-child=gedit --systemd-run=no  
-
